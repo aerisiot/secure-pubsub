@@ -14,8 +14,6 @@ class PiPubNub {
 
     initPubNub() {
         this.pubnub = new PubNub({
-            //publishKey: 'pub-c-86adf03f-7f5d-4570-a225-c275c74936f0',
-            //subscribeKey: 'sub-c-3aeccb10-0519-11e7-91d0-02ee2ddab7fe',
             publishKey: this.pubKey,
             subscribeKey: this.subKey,
             uuid: this.deviceId, // MSISDN
