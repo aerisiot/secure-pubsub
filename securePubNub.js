@@ -83,6 +83,47 @@ class PiCpu {
   }
 }
 
+// Scan wifi
+class PiFi {
+    constructor(pubNubClient, channel) {
+      this.pubNubClient = pubNubClient;
+      this.channel = channel;
+    }
+
+    scan() {
+        exec('nmcli', ['device','wifi','list'], (error, stdout, stderr) => {
+            if (error) {
+                throw error;
+            }
+
+            const str = stdout.toString();
+            const lines = str.split(/(\r?\n)/g);
+
+            // Igore the header and start parsing at the 2nd line
+            for (let i=1; i < lines.length; ++i) {
+                const line = lines[i].trim();
+
+                if (line.length < 1) continue;
+                if (line.startsWith("*")) continue;
+
+                const fields = line.split(/[ ,]+/);
+                const wifiData = {};
+
+                wifiData['ssid'] = fields[0] != '--' ? fields[0] : 'hidden' + i;
+                wifiData['mode'] = fields[1];
+                wifiData['chan'] = fields[2];
+                wifiData['rate'] = fields[3];
+                wifiData['signal'] = fields[5];
+                wifiData['security'] = fields[7];
+                wifiData['ts'] = new Date().getTime();
+
+                // Publish to PubNub
+                this.pubNubClient.publish(wifiData, this.channel);
+            }
+        });
+    }
+}
+
 class PiSms {
   findModem() {
     exec('mmcli', ['-L'], (error, stdout, stderr) => {
@@ -125,6 +166,7 @@ class PiSms {
             const smsText = msgText[0].substring("text:".length + 2, msgText[0].length - 1);
             console.log(smsText);
 
+            // The smsText is in the format of "deviceId,pubKey,subKey"
             const keys = smsText.split(',');
             
             // Initialize PubNub
@@ -133,6 +175,10 @@ class PiSms {
             // Read CPU temp
             const piCpu = new PiCpu(pubNubClient, "PiCpuChannel");
             piCpu.scan();
+
+            // Scan wifi
+            const piFi = new PiFi(pubNubClient, "PiWifiChannel");
+            piFi.scan();
         });
       }
 
