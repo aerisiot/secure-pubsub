@@ -1,5 +1,6 @@
 # A PubSub Client with Secure API Key Bootstrap
-This NodeJs-based client uses PubNub to publish CPU temperature and wifi signal strength collected from a Raspberry Pi. The PubNub keys are bootstraped from a secure Aeris SMS.
+This NodeJs-based client uses PubNub to publish CPU temperature and wifi signal strength collected from a Raspberry Pi. The PubNub keys are bootstraped from a secure Aeris SMS. [Read more...](https://github.com/aerisiot/secure-pubsub/wiki)
+
 ## Prerequsite
 * Raspberry Pi w/ Raspbian
 * NodeJS 6.4 and above
