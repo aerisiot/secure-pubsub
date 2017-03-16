@@ -8,7 +8,7 @@ This NodeJs-based client uses PubNub to publish CPU temperature and wifi signal 
 * Celluar Modem
 
 ## How to Run the Client
-1. Follow all instructions from the [wiki](https://github.com/aerisiot/secure-pubsub/wiki) before running this client.
+1. Follow all instructions from the [secure-pubsub wiki](https://github.com/aerisiot/secure-pubsub/wiki) before running this client.
 
 2. Boot the Raspberry Pi and start a termial console.
 
