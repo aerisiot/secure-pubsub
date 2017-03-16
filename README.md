@@ -21,4 +21,4 @@ This NodeJs-based client uses PubNub to publish CPU temperature and wifi signal 
 $ node securePubNub.js
 ```
 
-See [wiki](https://github.com/aerisiot/secure-pubsub/wiki) for more information.
+See the [secure-pubsub wiki](https://github.com/aerisiot/secure-pubsub/wiki) for more information.
